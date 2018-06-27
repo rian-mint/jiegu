@@ -6,6 +6,9 @@
   </head>
   <body>
     great app
+    <?php
+      echo 'a';
+      ?>
   </body>
 </html>
 
