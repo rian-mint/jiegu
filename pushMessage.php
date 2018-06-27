@@ -24,7 +24,7 @@ echo '--2--';
 print(gettype($accountNo));
 
 $isRegisterd = false;
-gettype($id)；
+gettype($id);
 // メッセージをユーザーID宛にプッシュ
 foreach ($ids as $id) {
   print($id."  ");
