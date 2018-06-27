@@ -8,7 +8,7 @@ require_once('index.php');
 //require_once('MyValidator.php');
 define('TABLE_NAME', 'ids');
 //$v = new MyValidator();
-echo '1';
+
 //$accountNo　nameのパラーメーターをメッセージとする
 $accountNo = htmlspecialchars($_GET["accountNo"]);
 //$v->lengthCheck($accountNo,'length',23);
@@ -17,20 +17,18 @@ $accountNo = htmlspecialchars($_GET["accountNo"]);
 print($accountNo);
 $ids = getUserIds();
 print_r($ids);
+
 if($ids === PDO::PARAM_NULL){
   error_log('There is no id');
 }
-echo '--2--';
+
 print(gettype($accountNo));
 
 $isRegisterd = false;
-gettype($id);
+
 // メッセージをユーザーID宛にプッシュ
 foreach ($ids as $id) {
-  print($id."  ");
-  print(gettype($id));
-
-  if($id === $accountNo)
+  if( (string)$id === $accountNo)
   {
     $isRegisterd = true;
     break;
