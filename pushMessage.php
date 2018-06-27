@@ -6,7 +6,7 @@ a
 //DBクラスを使うためにindex.phpを読み込む
 require_once('index.php');
 //require_once('MyValidator.php');
-
+define('TABLE_NAME', 'ids');
 //$v = new MyValidator();
 echo '1';
 //$accountNo　nameのパラーメーターをメッセージとする
@@ -25,6 +25,7 @@ echo '2';
 $isRegisterd = false;
 // メッセージをユーザーID宛にプッシュ
 foreach ($ids as $id) {
+  print($id."  ");
   if($id === $accountNo)
   {
     $isRegisterd = true;
@@ -47,7 +48,7 @@ function getUserIds() {
   //DBクラスを使うためにindex.phpを読み込む
   require_once('index.php');
   $dbh = dbConnection::getConnection();
-  $sql = 'select userid from ids';
+  $sql = 'select id from ids';
   $sth = $dbh->prepare($sql);
   $sth->execute();
 

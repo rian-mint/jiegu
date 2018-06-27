@@ -16,22 +16,6 @@
 // Composerでインストールしたライブラリを一括読み込み
 //require_once __DIR__ . '/vendor/autoload.php';
 // テーブル名を定義
-define('TABLE_NAME_STONES', 'ids');
-
-// ユーザーIDを元にデータベースから情報を取得
-function getStonesByUserId($userId) {
-  $dbh = dbConnection::getConnection();
-  $sql = 'select userid from ' . TABLE_NAME_STONES . ' where ? = pgp_sym_decrypt(userid, \'' . getenv('DB_ENCRYPT_PASS') . '\')';
-  $sth = $dbh->prepare($sql);
-  $sth->execute(array($userId));
-  // レコードが存在しなければNULL
-  if (!($row = $sth->fetch())) {
-    return PDO::PARAM_NULL;
-  } else {
-    // 石の配置を連想配列に変換し返す
-    return true;
-  }
-}
 
 // データベースへの接続を管理するクラス
 class dbConnection {
