@@ -1,13 +1,11 @@
 <?php
 
 // Composerでインストールしたライブラリを一括読み込み
-require_once __DIR__ . '/vendor/autoload.php';
+//require_once __DIR__ . '/vendor/autoload.php';
 //DBクラスを使うためにindex.phpを読み込む
 require_once('index.php');
 require_once('MyValidator.php');
 
-// アクセストークンを使いCurlHTTPClientをインスタンス化
-$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(getenv('CHANNEL_ACCESS_TOKEN'));
 $v = new MyValidator();
 echo '1';
 //$accountNo　nameのパラーメーターをメッセージとする
