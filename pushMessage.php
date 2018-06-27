@@ -21,7 +21,7 @@ if($ids === PDO::PARAM_NULL){
 }
 echo '2';
 
-bool $isRegisterd = false;
+$isRegisterd = false;
 // メッセージをユーザーID宛にプッシュ
 foreach ($ids as $id) {
   if($id === $accountNo)
