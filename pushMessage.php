@@ -2,11 +2,11 @@
 
 //DBクラスを使うためにindex.phpを読み込む
 require_once('index.php');
-//require_once('MyValidator.php');
+require_once('MyValidator.php');
 define('TABLE_NAME', 'ids');
-//$v = new MyValidator();
+$v = new MyValidator();
 
-//$accountNo　nameのパラーメーターをメッセージとする
+//$accountNoをパラーメーターで指定する
 $accountNo = htmlspecialchars($_GET["accountNo"]);
 //$v->lengthCheck($accountNo,'length',23);
 //$v->regexCheck($accountNo,'message','/(Low|High)--(USDJPY|EURJPY|GBPJPY|AUDJPY|NZDJPY|EURUSD|AUDUSD)--[0-9]{1,3}\.[0-9]{5}/');
@@ -21,7 +21,7 @@ if($ids === PDO::PARAM_NULL){
 
 //アカウント番号が登録されているかチェックする
 foreach ($ids as $id) {
-  if( (string)$id === $accountNo)
+  if((string)$id === $accountNo)
   {
     $isRegisterd = true;
     break;
