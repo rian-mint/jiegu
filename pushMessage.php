@@ -8,9 +8,9 @@ $v = new MyValidator();
 
 //$accountNoをパラーメーターで指定する
 $accountNo = htmlspecialchars($_GET["accountNo"]);
-//$v->lengthCheck($accountNo,'length',23);
-//$v->regexCheck($accountNo,'message','/(Low|High)--(USDJPY|EURJPY|GBPJPY|AUDJPY|NZDJPY|EURUSD|AUDUSD)--[0-9]{1,3}\.[0-9]{5}/');
-//$v();
+//$v->lengthCheck($accountNo,'length',20);
+$v->regexCheck($accountNo,'message','/[[0-9]+/');
+$v();
 
 $isRegisterd = false;
 $ids = getUserIds();
