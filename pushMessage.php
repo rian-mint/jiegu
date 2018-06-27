@@ -5,15 +5,15 @@ a
 //require_once __DIR__ . '/vendor/autoload.php';
 //DBクラスを使うためにindex.phpを読み込む
 require_once('index.php');
-require_once('MyValidator.php');
+//require_once('MyValidator.php');
 
-$v = new MyValidator();
+//$v = new MyValidator();
 echo '1';
 //$accountNo　nameのパラーメーターをメッセージとする
 $accountNo = htmlspecialchars($_GET["accountNo"]);
-$v->lengthCheck($accountNo,'length',23);
+//$v->lengthCheck($accountNo,'length',23);
 //$v->regexCheck($accountNo,'message','/(Low|High)--(USDJPY|EURJPY|GBPJPY|AUDJPY|NZDJPY|EURUSD|AUDUSD)--[0-9]{1,3}\.[0-9]{5}/');
-$v();
+//$v();
 print($accountNo);
 $ids = getUserIds();
 print_r($ids);
