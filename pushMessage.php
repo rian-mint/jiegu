@@ -20,12 +20,16 @@ print_r($ids);
 if($ids === PDO::PARAM_NULL){
   error_log('There is no id');
 }
-echo '2';
+echo '--2--';
+print(gettype($accountNo));
 
 $isRegisterd = false;
+gettype($id)
 // メッセージをユーザーID宛にプッシュ
 foreach ($ids as $id) {
   print($id."  ");
+  print(gettype($id));
+
   if($id === $accountNo)
   {
     $isRegisterd = true;
