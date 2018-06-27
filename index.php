@@ -1,21 +1,4 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-  </head>
-  <body>
-    great app
-    <?php
-      echo 'a';
-      ?>
-  </body>
-</html>
-
 <?php
-
-// Composerでインストールしたライブラリを一括読み込み
-//require_once __DIR__ . '/vendor/autoload.php';
-// テーブル名を定義
 
 // データベースへの接続を管理するクラス
 class dbConnection {
@@ -47,5 +30,19 @@ class dbConnection {
     return self::$db;
   }
 }
+// ユーザーIDをデータベースから取得
+function getUserIds() {
 
+  $dbh = dbConnection::getConnection();
+  $sql = 'select id from ids';
+  $sth = $dbh->prepare($sql);
+  $sth->execute();
+
+  // レコードが存在しなければNULL
+  if (!($ids=$sth->fetchAll(PDO::FETCH_COLUMN, 0))) {
+    return PDO::PARAM_NULL;
+  }
+
+  return $ids;
+}
 ?>
