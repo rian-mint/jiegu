@@ -12,11 +12,14 @@ $accountNo = htmlspecialchars($_GET["accountNo"]);
 //$v->regexCheck($accountNo,'message','/[0-9]+/');
 $v();
 
+echo $accountNo ;
+
 $isRegisterd = false;
 $ids = getUserIds();
 
 if($ids === PDO::PARAM_NULL){
   error_log('There is no id');
+  echo 'There is no id';
 }
 
 //アカウント番号が登録されているかチェックする
