@@ -44,7 +44,7 @@ function getUserIds() {
   $dbh = dbConnection::getConnection();
 //  $sql = 'select userid from ' . TABLE_NAME_STONES . ' where ? = pgp_sym_decrypt(userid, \'' . getenv('DB_ENCRYPT_PASS') . '\')';
 
-  $sql = 'select pgp_sym_decrypt(userid,\''. getenv('DB_ENCRYPT_PASS') .'\') from mt4testj';
+  $sql = 'select pgp_sym_decrypt(userid,\''. getenv('DB_ENCRYPT_PASS') .'\') from '. getenv('USERID_TABLE');
   $sth = $dbh->prepare($sql);
   $sth->execute();
 
