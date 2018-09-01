@@ -9,7 +9,7 @@ $v = new MyValidator();
 //$accountNoをパラーメーターで指定する
 $accountNo = htmlspecialchars($_GET["accountNo"]);
 //$v->lengthCheck($accountNo,'length',20);
-$v->regexCheck($accountNo,'message','/[[0-9]+/');
+$v->regexCheck($accountNo,'message','/[0-9]+/');
 $v();
 
 $isRegisterd = false;
