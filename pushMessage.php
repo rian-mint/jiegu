@@ -18,7 +18,7 @@ $v->lengthCheck($message,'length',23);
 //$v->regexCheck($message,'message','/(Low|High)--(USDJPY|EURJPY|GBPJPY|AUDJPY|NZDJPY|EURUSD|AUDUSD)--[0-9]{1,3}\.[0-9]{5}/');
 $v();
 
-echo 'stage1'
+echo 'stage1';
 
 $ids = getUserIds();
 
@@ -26,7 +26,7 @@ if($ids === PDO::PARAM_NULL){
   error_log('There is no id');
 }
 
-echo 'ids'
+echo 'ids';
 
 // メッセージをユーザーID宛にプッシュ
 //$response = $bot->pushMessage($ids, new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($message));
