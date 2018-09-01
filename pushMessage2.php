@@ -14,21 +14,23 @@ $v = new MyValidator();
 
 //$message　nameのパラーメーターをメッセージとする
 $message = htmlspecialchars($_GET["name"]);
-$v->lengthCheck($message,'length',23);
+//$v->lengthCheck($message,'length',23);
 //$v->regexCheck($message,'message','/(Low|High)--(USDJPY|EURJPY|GBPJPY|AUDJPY|NZDJPY|EURUSD|AUDUSD)--[0-9]{1,3}\.[0-9]{5}/');
 $v();
 
 $ids = getUserIds();
+
+echo 'id '.$ids;
 
 if($ids === PDO::PARAM_NULL){
   error_log('There is no id');
 }
 
 // メッセージをユーザーID宛にプッシュ
-//$response = $bot->pushMessage($ids, new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($message));
+$response = $bot->pushMessage($ids, new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($message));
 
 // メッセージを複数人にプッシュ
-$response = $bot->multicast($ids, new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($message));
+//$response = $bot->multicast($ids, new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($message));
 
 if (!$response->isSucceeded()) {
   error_log('Failed!'. $response->getHTTPStatus . ' ' . $response->getRawBody());
