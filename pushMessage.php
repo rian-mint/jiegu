@@ -26,8 +26,6 @@ if($ids === PDO::PARAM_NULL){
   error_log('There is no id');
 }
 
-echo 'ids';
-
 // メッセージをユーザーID宛にプッシュ
 //$response = $bot->pushMessage($ids, new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($message));
 
