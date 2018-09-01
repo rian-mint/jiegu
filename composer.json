@@ -1,6 +1,7 @@
 {
     "require": {
-      "php": "^7.1.16",
-        "ext-mbstring": "*"
+        "linecorp/line-bot-sdk": "^2.3",
+        "fabpot/goutte": "^3.2",
+        "ext-gd": "^7.1"
     }
 }

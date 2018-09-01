@@ -1,36 +1,62 @@
 <?php
 
+// Composerでインストールしたライブラリを一括読み込み
+require_once __DIR__ . '/vendor/autoload.php';
 //DBクラスを使うためにindex.phpを読み込む
 require_once('index.php');
 require_once('MyValidator.php');
-define('TABLE_NAME', 'ids');
+
+// アクセストークンを使いCurlHTTPClientをインスタンス化
+$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(getenv('CHANNEL_ACCESS_TOKEN'));
+// CurlHTTPClientとシークレットを使いLINEBotをインスタンス化
+$bot = new \LINE\LINEBot($httpClient, ['channelSecret' => getenv('CHANNEL_SECRET')]);
 $v = new MyValidator();
 
-//$accountNoをパラーメーターで指定する
-$accountNo = htmlspecialchars($_GET["accountNo"]);
-//$v->lengthCheck($accountNo,'length',20);
-//$v->regexCheck($accountNo,'message','/[0-9]+/');
+//$message　nameのパラーメーターをメッセージとする
+$message = htmlspecialchars($_GET["name"]);
+$v->lengthCheck($message,'length',23);
+//$v->regexCheck($message,'message','/(Low|High)--(USDJPY|EURJPY|GBPJPY|AUDJPY|NZDJPY|EURUSD|AUDUSD)--[0-9]{1,3}\.[0-9]{5}/');
 $v();
 
-echo $accountNo ;
+echo 'stage1'
 
-$isRegisterd = false;
 $ids = getUserIds();
 
 if($ids === PDO::PARAM_NULL){
   error_log('There is no id');
-  echo 'There is no id';
 }
 
-//アカウント番号が登録されているかチェックする
-foreach ($ids as $id) {
-  if((string)$id === $accountNo)
-  {
-    $isRegisterd = true;
-    break;
+echo 'ids'
+
+// メッセージをユーザーID宛にプッシュ
+//$response = $bot->pushMessage($ids, new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($message));
+
+// メッセージを複数人にプッシュ
+$response = $bot->multicast($ids, new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($message));
+
+if (!$response->isSucceeded()) {
+  error_log('Failed!'. $response->getHTTPStatus . ' ' . $response->getRawBody());
+}
+
+// ユーザーIDをデータベースから取得
+function getUserIds() {
+  //DBクラスを使うためにindex.phpを読み込む
+  require_once('index.php');
+
+  $dbh = dbConnection::getConnection();
+//  $sql = 'select userid from ' . TABLE_NAME_STONES . ' where ? = pgp_sym_decrypt(userid, \'' . getenv('DB_ENCRYPT_PASS') . '\')';
+
+  $sql = 'select pgp_sym_decrypt(userid,\''. getenv('DB_ENCRYPT_PASS') .'\') from mt4testj';
+  $sth = $dbh->prepare($sql);
+  $sth->execute();
+
+  //fetchAll(PDO::FETCH_COLUMN, 0); 0列目の要素を全て配列で取得
+
+  // レコードが存在しなければNULL
+  if (!($ids=$sth->fetchAll(PDO::FETCH_COLUMN, 0))) {
+    return PDO::PARAM_NULL;
   }
-}
 
-if ($isRegisterd) echo 'true';
-else echo 'false';
+  return $ids;
+}
 ?>
